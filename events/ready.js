@@ -64,9 +64,9 @@ module.exports = class {
                 if (user) {
                   bdays.push(user.user.tag);
                   user.roles.add("517244087817076738");
-                  user.user.send(
+                  /*user.user.send(
                     "Since today is your birthday, you have been given a special role in Subtle Asian Discord! :tada:"
-                  );
+                  );*/
                 }
               }
               bot.users
