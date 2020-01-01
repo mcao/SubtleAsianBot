@@ -1159,7 +1159,7 @@ exports.start = (client, options) => {
       const voiceConnection = client.voice.connections.find(
         val => val.channel.guild.id == msg.guild.id
       );
-      if (voiceConnection === null)
+      if (!voiceConnection)
         return msg.channel.send(
           musicbot.note('fail', 'No music being played.')
         );
@@ -1209,7 +1209,7 @@ exports.start = (client, options) => {
       const voiceConnection = client.voice.connections.find(
         val => val.channel.guild.id == msg.guild.id
       );
-      if (voiceConnection === null)
+      if (!voiceConnection)
         return msg.channel.send(
           musicbot.note('fail', 'No music being played.')
         );
@@ -1240,7 +1240,7 @@ exports.start = (client, options) => {
       const voiceConnection = client.voice.connections.find(
         val => val.channel.guild.id == msg.guild.id
       );
-      if (voiceConnection === null)
+      if (!voiceConnection)
         return msg.channel.send(
           musicbot.note('fail', 'No music being played.')
         );
@@ -1274,7 +1274,7 @@ exports.start = (client, options) => {
         const voiceConnection = client.voice.connections.find(
           val => val.channel.guild.id == msg.guild.id
         );
-        if (voiceConnection === null)
+        if (!voiceConnection)
           return msg.channel.send(
             musicbot.note('fail', "I'm not in a voice channel.")
           );
@@ -1332,7 +1332,7 @@ exports.start = (client, options) => {
       const voiceConnection = client.voice.connections.find(
         val => val.channel.guild.id == msg.guild.id
       );
-      if (voiceConnection === null)
+      if (!voiceConnection)
         return msg.channel.send(
           musicbot.note('fail', 'No music is being played.')
         );
@@ -1420,7 +1420,7 @@ exports.start = (client, options) => {
       musicbot
         .emptyQueue(msg.guild.id)
         .then(() => {
-          if (voiceConnection !== null) {
+          if (voiceConnection) {
             const dispatcher = voiceConnection.player.dispatcher;
             dispatcher.end();
           }
@@ -1442,7 +1442,7 @@ exports.start = (client, options) => {
             working: false,
             needsRefresh: false
           });
-          if (voiceConnection !== null) {
+          if (voiceConnection) {
             const dispatcher = voiceConnection.player.dispatcher;
             dispatcher.end();
           }
@@ -1460,7 +1460,7 @@ exports.start = (client, options) => {
       const voiceConnection = client.voice.connections.find(
         val => val.channel.guild.id == msg.guild.id
       );
-      if (voiceConnection === null)
+      if (!voiceConnection)
         return msg.channel.send(
           musicbot.note('fail', 'No music being played.')
         );
@@ -2165,7 +2165,7 @@ exports.start = (client, options) => {
       const voiceConnection = client.voice.connections.find(
         val => val.channel.guild.id == msg.guild.id
       );
-      if (voiceConnection === null)
+      if (!voiceConnection)
         return msg.channel.send(
           musicbot.note('fail', 'No music is being played.')
         );
@@ -2223,7 +2223,7 @@ exports.start = (client, options) => {
           const voiceConnection = client.voice.connections.find(
             val => val.channel.guild.id == msg.guild.id
           );
-          if (voiceConnection !== null) {
+          if (voiceConnection) {
             const dispatcher = voiceConnection.player.dispatcher;
             if (!dispatcher || dispatcher === null) {
               if (musicbot.logging)
@@ -2469,7 +2469,7 @@ exports.start = (client, options) => {
         const voiceConnection = client.voice.connections.find(
           val => val.channel.guild.id == msg.guild.id
         );
-        if (voiceConnection !== null) return voiceConnection.disconnect();
+        if (voiceConnection) return voiceConnection.disconnect();
       }
 
       new Promise((resolve, reject) => {
@@ -2530,7 +2530,7 @@ exports.start = (client, options) => {
               const voiceConnection = client.voice.connections.find(
                 val => val.channel.guild.id == msg.guild.id
               );
-              if (voiceConnection !== null) return voiceConnection.disconnect();
+              if (voiceConnection) return voiceConnection.disconnect();
             }
           }
 
@@ -2718,8 +2718,7 @@ exports.start = (client, options) => {
                   const voiceConnection = client.voice.connections.find(
                     val => val.channel.guild.id == msg.guild.id
                   );
-                  if (voiceConnection !== null)
-                    return voiceConnection.disconnect();
+                  if (voiceConnection) return voiceConnection.disconnect();
                 }
               }, 1250);
             });
