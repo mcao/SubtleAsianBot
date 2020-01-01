@@ -4,38 +4,36 @@ module.exports = class {
   }
 
   async run(bot, msg) {
-    let { MessageEmbed } = require("discord.js");
+    let { MessageEmbed } = require('discord.js');
 
     if (!msg.guild && msg.author.id != bot.user.id) {
       msg.reply(
-        "your feedback has been received! The mod team will get back to you as soon as possible."
+        'your feedback has been received! The mod team will get back to you as soon as possible.'
       );
-      var modmail = bot.channels.get("516545655674503178");
+      var modmail = bot.channels.get('661958164316553228');
       var f = new MessageEmbed()
         .setColor(0x1675db)
         .setAuthor(
-          msg.author.username + " (" + msg.author.id + ")",
+          msg.author.username + ' (' + msg.author.id + ')',
           msg.author.avatarURL()
         )
-        .addField("Mod Mail Recieved!", msg.content || "No Content...")
+        .addField('Mod Mail Recieved!', msg.content || 'No Content...')
         .setFooter(bot.user.username, `${bot.user.avatarURL()}`)
         .setTimestamp();
       if (msg.attachments.first()) {
         if (msg.attachments.first().height)
           f.setImage(msg.attachments.first().url);
         msg.attachments.forEach(attachment => {
-          f.addField("Attachment", attachment.url);
+          f.addField('Attachment', attachment.url);
         });
       }
-      modmail.send("@here", {
+      modmail.send('@here', {
         embed: f
       });
     }
-    if (!msg.guild && msg.channel.type == "dm") {
+    if (!msg.guild && msg.channel.type == 'dm') {
       bot.logger.log(
-        `[DM] ${msg.channel.recipient.username} | ${msg.author.username} -> ${
-          msg.content
-        }`
+        `[DM] ${msg.channel.recipient.username} | ${msg.author.username} -> ${msg.content}`
       );
     }
 
@@ -43,13 +41,11 @@ module.exports = class {
     if (!bot.database || !bot.database.ready) return;
 
     bot.logger.log(
-      `${msg.guild.name} - #${msg.channel.name} | ${msg.author.username} -> ${
-        msg.content
-      }`
+      `${msg.guild.name} - #${msg.channel.name} | ${msg.author.username} -> ${msg.content}`
     );
 
-    if (
-      msg.channel.id === "516534356043628544" &&
+    /* if (
+      msg.channel.id === '516534356043628544' &&
       (!msg.attachments.first() || !msg.attachments.first().height)
     ) {
       msg.delete();
@@ -57,18 +53,18 @@ module.exports = class {
         .reply(
           "please keep discussion in the <#516885767520518144> channel! Here's the content of your message to copy over:```" +
             msg.content +
-            "```\n\n*This message will delete in 7 seconds.*"
+            '```\n\n*This message will delete in 7 seconds.*'
         )
         .then(m => {
           setTimeout(() => {
             m.delete();
           }, 7000);
         });
-    }
+    } */
 
-    if (!msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) return;
+    if (!msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) return;
 
-    if (msg.guild.me.displayHexColor == "#000000") msg.color = "#FFBB00";
+    if (msg.guild.me.displayHexColor == '#000000') msg.color = '#FFBB00';
     else msg.color = msg.guild.me.displayHexColor;
 
     let prefixes = [bot.config.Discord.prefix];
@@ -102,20 +98,20 @@ module.exports = class {
     const level = this.bot.permlevel(msg);
 
     if (cmd.conf.permLevel > level) {
-      msg.reply("you do not have permission to use this command!");
+      msg.reply('you do not have permission to use this command!');
       return;
     }
 
-    let blacklist = await bot.database.blacklist("id");
+    let blacklist = await bot.database.blacklist('id');
     if (blacklist.indexOf(msg.author.id) > -1) {
-      msg.reply("you are blacklisted from the bot!");
+      msg.reply('you are blacklisted from the bot!');
       return;
     }
 
     msg.author.permLevel = level;
 
     msg.flags = [];
-    while (args[0] && args[0][0] === "-") {
+    while (args[0] && args[0][0] === '-') {
       msg.flags.push(args.shift().slice(1));
     }
 
@@ -123,16 +119,16 @@ module.exports = class {
       `${bot.config.PermLevels.find(l => l.level === level).name} ${
         msg.author.username
       } (${msg.author.id}) ran command ${cmd.help.name}`,
-      "cmd"
+      'cmd'
     );
 
     cmd.run(bot, msg, args, level).catch(err => {
       msg.channel.send(
         "You shouldn't ever get this message. Please contact **" +
-          bot.users.get("171319044715053057").tag +
-          "** with this error:\n```LDIF\n" +
+          bot.users.get('171319044715053057').tag +
+          '** with this error:\n```LDIF\n' +
           err.stack +
-          "```"
+          '```'
       );
     });
   }
