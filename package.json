@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/mcao/RoBot-v6#readme",
   "dependencies": {
+    "abort-controller": "^3.0.0",
     "chalk": "^2.4.1",
     "discord.js": "github:discordjs/discord.js",
     "discord.js-musicbot-addon": "^13.0.0",
